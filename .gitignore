@@ -1,0 +1,29 @@
+# Raw and intermediate data are regenerable or too large to version.
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/reference/
+*.fastq
+*.fastq.gz
+*.rds
+
+# Results are committed on purpose: the README cites the figures and
+# tables, and a reader should see them without running anything.
+# Uncomment the next line if you would rather keep the repo lean.
+# results/
+
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+
+.Rhistory
+.RData
+.Rproj.user/
+.DS_Store

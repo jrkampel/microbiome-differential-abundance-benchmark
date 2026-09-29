@@ -1,0 +1,78 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Lint
+        run: ruff check src scripts tests
+
+      - name: Unit tests
+        run: pytest
+
+  pipeline:
+    # The scripts are the product, so a green unit test suite is not
+    # enough. This runs the simulated route end to end and fails if any
+    # stage errors or stops producing its outputs.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run the simulated pipeline
+        run: |
+          python scripts/01_simulate_dataset.py
+          python scripts/02_decontam.py
+          python scripts/03_ordination.py
+          python scripts/04_differential_abundance.py
+          python scripts/05_random_effects.py
+
+      - name: Check expected outputs exist
+        run: |
+          set -e
+          for f in \
+            results/tables/concordance.tsv \
+            results/tables/method_performance.tsv \
+            results/tables/random_effect_summary.tsv \
+            results/figures/volcano.png \
+            results/figures/random_effects.png
+          do
+            test -s "$f" || { echo "missing or empty: $f"; exit 1; }
+          done
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-outputs
+          path: results/

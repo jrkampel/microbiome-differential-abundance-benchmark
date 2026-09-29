@@ -1,0 +1,24 @@
+# Full environment including the R reference implementations.
+# conda env create -f environment.yml && conda activate mdab
+name: mdab
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python>=3.10
+  - numpy
+  - scipy
+  - pandas
+  - statsmodels
+  - matplotlib
+  - pytest
+  - r-base>=4.3
+  - bioconductor-dada2
+  - bioconductor-phyloseq
+  - bioconductor-decontam
+  - bioconductor-aldex2
+  - bioconductor-ancombc
+  - bioconductor-treesummarizedexperiment
+  - bioconductor-biostrings
+  - r-tidyverse
+  - cutadapt

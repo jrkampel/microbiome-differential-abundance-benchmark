@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: "mdab: compositional differential abundance methods for 16S data, compared against simulated ground truth"
+message: "If you use this software, please cite it."
+type: software
+authors:
+  - given-names: ""
+    family-names: ""
+version: 0.1.0
+license: MIT
+abstract: >-
+  A 16S amplicon analysis pipeline that runs ALDEx2 and ANCOM-BC2 on the
+  same data, models donor and batch as random effects, screens for
+  reagent contaminants with decontam, and evaluates all of it against
+  simulated data with known ground truth.
+keywords:
+  - microbiome
+  - 16S rRNA
+  - compositional data analysis
+  - differential abundance

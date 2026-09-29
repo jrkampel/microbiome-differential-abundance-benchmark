@@ -1,0 +1,4 @@
+test	pseudo_F	p_value	valid_for_design
+arm_free	2.0256442224790177	0.001	False
+arm_within_donor	2.0256442224790177	0.001	True
+batch_free	4.449841861657757	0.001	True

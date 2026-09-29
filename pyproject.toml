@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mdab"
+version = "0.1.0"
+description = "Compositional differential abundance methods for 16S data, compared against simulated ground truth"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+keywords = ["microbiome", "16S", "compositional", "ALDEx2", "ANCOM-BC2", "differential abundance"]
+classifiers = [
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+  "numpy>=1.24",
+  "scipy>=1.10",
+  "pandas>=2.0",
+  "statsmodels>=0.14",
+  "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "ruff>=0.5"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+src = ["src", "scripts", "tests"]
+
+[tool.ruff.lint]
+# Deliberately narrow: pycodestyle, pyflakes and import order. The wider
+# default rule set flags the sys.path inserts in scripts/ and tests/,
+# which are there on purpose so those files run without an editable
+# install, so E402 is switched off rather than worked around.
+select = ["E", "F", "W", "I"]
+ignore = ["E402"]

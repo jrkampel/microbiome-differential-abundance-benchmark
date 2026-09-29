@@ -1,0 +1,10 @@
+	value
+n_features	299.0
+n_aldex2	23.0
+n_ancombc2	28.0
+n_both	22.0
+n_aldex2_only	1.0
+n_ancombc2_only	6.0
+jaccard	0.7586206896551724
+spearman_effect_vs_lfc	0.9024313707885345
+spearman_p	1.2571965432790203e-110
